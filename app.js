@@ -14,6 +14,8 @@ app.use(bodyParser.urlencoded());
 // add middleware to handle overriding POST requests
 // for both PUT and DELETE
 app.use(methodOverride("_method"));
+// serve all public files
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
   res.render('movies/index');
@@ -44,33 +46,19 @@ app.get('/movies/:id', function(req, res) {
 });
 
 app.post('/movies', function(req, res) {
-  movieID = req.body.movie.ID;
+  var movie = {Title: req.body.movie.Title, ID: req.body.movie.ID}
   for (var i = 0; i < savedMovies.length; i++) {
-    if (savedMovies[i] === movieID) {
+    if (savedMovies[i].ID === movie.ID) {
       return;
     }
   };
-  savedMovies.push(movieID);
-  console.log(movieID);
+  savedMovies.push(movie);
+  console.log(movie);
   res.redirect('/');
 });
 
 app.get('/favorites', function(req, res) {
-  var movieList = {};
-  var url = "http://www.omdbapi.com/?i=";
-  savedMovies.forEach(function(item, index) {
-    request(url + item, function(error, response, body) {
-      if (!error) {
-        var data = JSON.parse(body);
-        movieList.index = data;
-        console.log("Favorite movies");
-        console.log(data);
-      }
-    });
-  }); 
-  console.log('array of fav movies');
-  console.log(movieList);
-  res.render('movies/favorites', {favMovies: movieList});
+  res.render('movies/favorites', {favMovies: savedMovies});
 });
 
 app.listen(3000, function() {

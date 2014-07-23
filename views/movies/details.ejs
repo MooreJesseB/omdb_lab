@@ -10,19 +10,24 @@
       <a href='#'><button>About</button></a>
       <a href='#'><button>Contact</button></a>
     </div>
-    <ul>
-      <h1>Movie Details:</h1><br>
-      <% movieDetails %>
+    
+      <h1><%= movieDetails.Title %></h1><br>
+      <form method="post" action="/movies">
+        <input type='hidden' value='<%=movieDetails.imdbID%>' name='movie[ID]'>
+        <input type='hidden' value='<%=movieDetails.Title%>' name='movie[Title]'>
+        <input type='submit' value='Favorite This Movie'><br>
+    </form>
+    <div>
       <img src="<%= movieDetails.Poster%>"><br>
+    </div>
+    <ul>
       <% for (key in movieDetails) { %>
+        <% if (key !== "Title" && key !== "Poster") { %>
         <li>
           <%= key %>: <%= movieDetails[key] %><br>
         </li>
+        <% } %>
       <% }; %>
     </ul>
-    <form method="post" action="/movies">
-      <input type='hidden' value='<%=movieDetails.imdbID%>' name='movie[ID]'>
-      <input type='submit' value='Favorite This Movie'>
-    </form>
   </body>
 </html>

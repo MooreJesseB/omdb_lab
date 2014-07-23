@@ -10,6 +10,7 @@
       <a href='#'><button>About</button></a>
       <a href='#'><button>Contact</button></a>
     </div>
+    <h1>Results:</h1><br>
     <ul>
       <% movieList.forEach(function(movie) { %>
       <li><a href="/movies/<%=movie.imdbID%>"><%= movie.Title %></a></li>

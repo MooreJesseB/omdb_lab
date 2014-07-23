@@ -11,9 +11,9 @@
       <a href='#'><button>Contact</button></a>
     </div>
     <ul>
-      <% for (var key in favMovies) { %>
-        <li><a href="/movies/<%=key.favMovie.imdbID%>"><%= favMovies.key.Title %><button></a></li>
-      <% } %>
+      <% favMovies.forEach(function(item) { %>
+        <li><a href="/movies/<%=item.ID%>"><%= item.Title %><button></a></li><br>
+      <% }) %>
     </ul>
   </body>
 </html>
