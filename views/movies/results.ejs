@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Movie Search Results</title>
+  </head>
+  <body>
+    <div>
+      <a href='/'><button action='/'>Home</button></a>
+      <a href='/favorites'><button>Favorite Movies</button></a>
+      <a href='#'><button>About</button></a>
+      <a href='#'><button>Contact</button></a>
+    </div>
+    <ul>
+      <% movieList.forEach(function(movie) { %>
+      <li><a href="/movies/<%=movie.imdbID%>"><%= movie.Title %></a></li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
